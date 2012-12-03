@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+    <div class="registration-form">
+        <h1>Sign-up</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% include "contrib/forms/default/form.html" with form=form only %}
+            {% include "contrib/forms/default/actions.html" with submit="Create an account" only %}
+        </form>
+    </div>
+{% endblock %}

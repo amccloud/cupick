@@ -1,0 +1,5 @@
+{% extends "common/forms/default/field.html" %}
+
+{% block content %}
+    <label for="{{ field.auto_id }}">{{ field }} {{ label|default:field.label }}</label>
+{% endblock %}

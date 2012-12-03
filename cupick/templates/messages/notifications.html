@@ -1,0 +1,29 @@
+{% load url from future %}
+
+<ul>
+    <li class="favorited">
+        <a href="{% url "my_message_list" "favorited" %}" class="icon">
+            Favorited <span class="badge {{ notifications.favorited|yesno:",hide" }}">{{ notifications.favorited }}</span>
+        </a>
+    </li>
+    <li class="messaged">
+        <a href="{% url "my_message_list" "messaged" %}" class="icon">
+            Messages <span class="badge {{ notifications.messaged|yesno:",hide" }}">{{ notifications.messaged }}</span>
+        </a>
+    </li>
+    <li class="smiled">
+        <a href="{% url "my_message_list" "smiled" %}" class="icon">
+            Smiles <span class="badge {{ notifications.smiled|yesno:",hide" }}">{{ notifications.smiled }}</span>
+        </a>
+    </li>
+    <li class="viewed">
+        <a href="{% url "my_message_list" "viewed" %}" class="icon">
+            Profile Views <span class="badge {{ notifications.viewed|yesno:",hide" }}">{{ notifications.viewed }}</span>
+        </a>
+    </li>
+    <li class="invited">
+        <a href="{% url "my_message_list" "invited" %}" class="icon">
+            Chat Invites <span class="badge {{ notifications.invited|yesno:",hide" }}">{{ notifications.invited }}</span>
+        </a>
+    </li>
+</ul>

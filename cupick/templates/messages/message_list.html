@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+    <ul>
+        {% for message in message_list %}
+            <li>
+               you {{ message.verb }} at {{ message.user_to }}
+            </li>
+        {% endfor %}
+    </ul>
+    {% include "pagination/basic.html" %}
+{% endblock %}

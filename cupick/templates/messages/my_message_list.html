@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+    <ul>
+        {% for message in message_list %}
+            <li>
+                <a href="{% url "profile_detail" message.user_from.username %}">{{ message.user_from }}</a> {{ message.verb }} you!
+            </li>
+        {% endfor %}
+    </ul>
+    {% include "pagination/basic.html" %}
+{% endblock %}

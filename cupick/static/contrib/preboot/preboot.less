@@ -1,0 +1,390 @@
+@defaultModalZindex: 9999;
+
+.border-radius(@radius) {
+    -webkit-border-radius: @radius;
+            border-radius: @radius;
+}
+
+.box-shadow(@shadow) {
+    -webkit-box-shadow: @shadow;
+            box-shadow: @shadow;
+}
+
+.box-sizing(@sizing) {
+    -webkit-box-sizing: @sizing;
+       -moz-box-sizing: @sizing;
+            box-sizing: @sizing;
+}
+
+.hardwareAccelerated() {
+    .transform(translate3d(0, 0, 0));
+}
+
+.opacity(@opacity) {
+  filter: e(%("alpha(opacity=%d)", @opacity));
+  -khtml-opacity: @opacity / 100;
+    -moz-opacity: @opacity / 100;
+         opacity: @opacity / 100;
+}
+
+.text-shadow(@textShadow) {
+    text-shadow: @textShadow;
+}
+
+.transition(@transition) {
+    -webkit-transition: @transition;
+       -moz-transition: @transition;
+         -o-transition: @transition;
+            transition: @transition;
+}
+
+.transform(@transform) {
+    -webkit-transform: @transform;
+       -moz-transform: @transform;
+            transform: @transform;
+}
+
+.transform-origin(@origin) {
+    -webkit-transform-origin: @origin;
+       -moz-transform-origin: @origin;
+            transform-origin: @origin;
+}
+
+.user-select(@select) {
+    -webkit-user-select: @select;
+       -moz-user-select: @select;
+            user-select: @select;
+}
+
+.size(@width, @height) {
+    width: @width;
+    height: @height;
+}
+
+.size(@widthHeight) {
+    .size(@widthHeight, @widthHeight);
+}
+
+.square(@widthHeight) {
+    .size(@widthHeight);
+}
+
+.circle(@diameter) {
+    .square(@diameter);
+    .border-radius(@diameter / 2);
+}
+
+.image(@src, @width, @height) {
+    .size(@width, @height);
+    background-image: url(@src) no-repeat;
+}
+
+.image(@src, @widthHeight) {
+    .image(@src, @widthHeight, @widthHeight);
+}
+
+.perspective(@perspective) {
+    -webkit-perspective: @perspective;
+       -moz-perspective: @perspective;
+            perspective: @perspective;
+}
+
+.perspective-origin(@origin) {
+    -webkit-perspective-origin: @origin;
+       -moz-perspective-origin: @origin;
+            perspective-origin: @origin;
+}
+
+.position(@position, @top, @right, @bottom, @left) {
+    position: @position;
+    top: @top;
+    right: @right;
+    bottom: @bottom;
+    left: @left;
+}
+
+.position(@position, @top, @leftRight, @bottom) {
+    .position(@position, @top, @leftRight, @bottom, @leftRight);
+}
+
+.position(@position, @topBottom, @leftRight) {
+    .position(@position, @topBottom, @leftRight, @topBottom, @leftRight);
+}
+
+.position(@position, @topLeftBottomRight) {
+    .position(@position, @topLeftBottomRight, @topLeftBottomRight, @topLeftBottomRight, @topLeftBottomRight);
+}
+
+.absolute(@top, @right, @bottom, @left) {
+    .position(absolute, @top, @right, @bottom, @left);
+}
+
+.absolute(@top, @leftRight, @bottom) {
+    .position(absolute, @top, @leftRight, @bottom, @leftRight);
+}
+
+.absolute(@topBottom, @leftRight) {
+    .position(absolute, @topBottom, @leftRight, @topBottom, @leftRight);
+}
+
+.absolute(@topLeftBottomRight) {
+    .position(absolute, @topLeftBottomRight, @topLeftBottomRight, @topLeftBottomRight, @topLeftBottomRight);
+}
+
+.fixed(@top, @right, @bottom, @left) {
+    .position(fixed, @top, @right, @bottom, @left);
+}
+
+.fixed(@top, @leftRight, @bottom) {
+    .position(fixed, @top, @leftRight, @bottom, @leftRight);
+}
+
+.fixed(@topBottom, @leftRight) {
+    .position(fixed, @topBottom, @leftRight, @topBottom, @leftRight);
+}
+
+.fixed(@topLeftBottomRight) {
+    .position(fixed, @topLeftBottomRight, @topLeftBottomRight, @topLeftBottomRight, @topLeftBottomRight);
+}
+
+.relative(@top, @right, @bottom, @left) {
+    .position(relative, @top, @right, @bottom, @left);
+}
+
+.relative(@top, @leftRight, @bottom) {
+    .position(relative, @top, @leftRight, @bottom, @leftRight);
+}
+
+.relative(@topBottom, @leftRight) {
+    .position(relative, @topBottom, @leftRight, @topBottom, @leftRight);
+}
+
+.relative(@topLeftBottomRight) {
+    .position(relative, @topLeftBottomRight, @topLeftBottomRight, @topLeftBottomRight, @topLeftBottomRight);
+}
+
+.-modal-base(@width, @height, @zIndex) {
+    & > * {
+        .absolute(50%);
+        .size(@width, @height);
+        margin-left: (@width / 2) * -1;
+        margin-top: (@height / 2) * -1;
+        z-index: @zIndex;
+    }
+}
+
+.-modal-mask(@maskBackground, @zIndex) {
+    &:before {
+        .size(100%);
+        background: @maskBackground;
+        content: "";
+        position: absolute;
+        z-index: @zIndex;
+    }
+}
+
+.modal(@width, @height, @maskBackground, @zIndex) {
+    .-modal-base(@width, @height, @zIndex);
+    .-modal-mask(@maskBackground, @zIndex - 1);
+}
+
+.modal(@width, @height, @maskBackground) {
+    .-modal-base(@width, @height, @defaultModalZindex);
+    .-modal-mask(@maskBackground, @defaultModalZindex - 1);
+}
+
+.modal(@width, @height) {
+    .-modal-base(@width, @height, @defaultModalZindex);
+}
+
+.modal(@widthHeight) {
+    .-modal-base(@widthHeight, @widthHeight, @defaultModalZindex);
+}
+
+.pull-center() {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pull-left() {
+    float: left;
+}
+
+.pull-right() {
+    float: right;
+}
+
+.hide() {
+    display: none;
+}
+
+.show() {
+    display: block;
+}
+
+.invisible() {
+    visibility: hidden;
+}
+
+.group() {
+    *zoom: 1;
+
+    &:before, &:after {
+        content: "";
+        display: table;
+        line-height: 0;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+.clearfix() {
+    .group;
+}
+
+#document {
+    .reset() {
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+                -ms-text-size-adjust: 100%;
+        }
+
+        body {
+            line-height: 1;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        hgroup,
+        nav,
+        section {
+            display: block;
+        }
+
+        audio,
+        canvas,
+        video {
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+        }
+
+        audio:not([controls]) {
+            display: none;
+        }
+
+        a:hover,
+        a:active {
+            outline: 0;
+        }
+
+        sub,
+        sup {
+            position: relative;
+            font-size: 75%;
+            line-height: 0;
+            vertical-align: baseline;
+        }
+
+        sup {
+            top: -0.5em;
+        }
+
+        sub {
+            bottom: -0.25em;
+        }
+
+
+        img {
+            max-width: 100%;
+            width: auto\9;
+            height: auto;
+            vertical-align: middle;
+            border: 0;
+            -ms-interpolation-mode: bicubic;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            margin: 0;
+            font-size: 100%;
+            vertical-align: middle;
+        }
+
+        button,
+        input {
+            *overflow: visible;
+            line-height: normal;
+        }
+
+        button::-moz-focus-inner,
+        input::-moz-focus-inner {
+            padding: 0;
+            border: 0;
+        }
+
+        button,
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"] {
+            cursor: pointer;
+            -webkit-appearance: button;
+        }
+
+        input[type="search"] {
+            -webkit-appearance: textfield;
+            -webkit-box-sizing: content-box;
+               -moz-box-sizing: content-box;
+                    box-sizing: content-box;
+        }
+
+        input[type="search"]::-webkit-search-decoration,
+        input[type="search"]::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+        }
+
+        textarea {
+            overflow: auto;
+            vertical-align: top;
+        }
+    }
+}

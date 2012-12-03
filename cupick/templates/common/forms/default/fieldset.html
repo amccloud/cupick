@@ -1,0 +1,8 @@
+<fieldset class="{{ class|default:"label-left" }}">
+    {% if legend %}
+        <legend>{{ legend }}</legend>
+    {% endif %}
+    {% for field in fields %}
+        {% include "common/forms/default/field.html" with field=field only %}
+    {% endfor %}
+</fieldset>

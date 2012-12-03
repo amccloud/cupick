@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load humanize %}
+
+{% block content %}
+    <p>
+        Showing {{ page_obj.object_list|length }} of {{ page_obj.paginator.count }}
+    </p>
+    <form id="search-form" method="get">
+        {{ form }}
+        <p><input class="btn" type="submit"></p>
+    </form>
+    <ul>
+        {% for profile in profiles %}
+            <li>
+                <h1><a href="{% url "profile_detail" profile.username %}">{{ profile.username }}</a></h1>
+                <p>
+                    {{ profile.age }} &middot;
+                    {{ profile.gender|first|first|upper }} &middot;
+                    {{ profile.location }} &middot;
+                    {% if form.location_point.value %}
+                        {{ profile.distance.mi|floatformat:0|intcomma }} Miles &middot;
+                    {% endif %}
+                    {{ profile.score|intcomma }} &middot;
+                    {{ profile.is_online|yesno:"Online,Offline" }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+    {% include "pagination/basic.html" %}
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script>
+        (function($) {
+            'use strict';
+
+            $(function() {
+                // Prevent the form from submitting all of it's empty values.
+                // We do this to keep the search urls clean.
+                $('#search-form').on('submit', function() {
+                    $(':input[value=""]', this).attr('disabled', true);
+                });
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

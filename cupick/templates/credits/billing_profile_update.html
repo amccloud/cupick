@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form id="billing-profile" method="post">
+        {% csrf_token %}
+        <h1>Billing</h1>
+        <fieldset class="well">
+            {% if form.card_type.value %}
+                <img src="{{ STATIC_URL }}cupick/credits/cards/{{ form.card_type.value|lower }}.png" alt="{{ form.card_type.value }}">
+            {% endif %}
+            {% include "common/forms/default/field.html" with field=form.card_number only %}
+            {% include "common/forms/default/field.html" with field=form.card_exp_month only %}
+            {% include "common/forms/default/field.html" with field=form.card_exp_year only %}
+            {% include "common/forms/default/field.html" with field=form.card_cvc only %}
+            {% include "common/forms/default/field.html" with field=form.card_name only %}
+            {% include "common/forms/default/field.html" with field=form.card_company only %}
+            {% include "common/forms/default/field.html" with field=form.card_address_line1 only %}
+            {% include "common/forms/default/field.html" with field=form.card_address_line2 only %}
+            {% include "common/forms/default/field.html" with field=form.card_address_zip only %}
+            {% include "common/forms/default/field.html" with field=form.card_address_city only %}
+            {% include "common/forms/default/field.html" with field=form.card_address_state only %}
+            {% include "common/forms/default/field.html" with field=form.card_address_country only %}
+            {% include "common/forms/default/field.html" with field=form.card_last4 only %}
+            {% include "common/forms/default/field.html" with field=form.card_type only %}
+            {% include "common/forms/default/field.html" with field=form.stripe_token only %}
+        </fieldset>
+        {% include "common/forms/default/actions.html" with submit="Save" only %}
+    </form>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="https://js.stripe.com/v1/"></script>
+    <script>
+        Stripe.setPublishableKey('{{ STRIPE_PUBLISHABLE_KEY }}');
+    </script>
+    <script src="{{ STATIC_URL }}cupick/credits/billing-profile.js"></script>
+{% endblock %}

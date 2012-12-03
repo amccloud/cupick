@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {% include "common/forms/default/form.html" with form=form only %}
+        {% if request.user.billing_profile.card_last4 %}
+            {% include "common/forms/default/actions.html" with submit="Buy" only %}
+        {% else %}
+            {% include "common/forms/default/actions.html" with submit="Continue" only %}
+        {% endif %}
+    </form>
+{% endblock %}

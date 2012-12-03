@@ -1,0 +1,20 @@
+{% if field %}
+    {% if field.is_hidden %}
+        {{ field }}
+    {% else %}
+        <div class="{{ class }}{% if field.errors %} error{% endif %}">
+            {% block content %}
+                {% if label != "" %}
+                    <label for="{{ field.auto_id }}">{{ label|default:field.label }}</label>
+                {% endif %}
+                {{ field }}
+            {% endblock %}
+            {% with help_text|default:field.help_text as help_text %}
+                {% if help_text %}
+                    <p>{{ help_text }}</p>
+                {% endif %}
+            {% endwith %}
+            {% include "common/forms/default/errors.html" with errors=field.errors only %}
+        </div>
+    {% endif %}
+{% endif %}

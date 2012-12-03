@@ -1,0 +1,31 @@
+{% load url from future %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-us-compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+        <title></title>
+        {% block css %}
+            <link rel="stylesheet" href="{{ STATIC_URL }}cupick/css/all.css">
+        {% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            <header>
+
+            </header>
+            <div class="main">
+                {% block content %}{% endblock %}
+            </div>
+            <footer>
+
+            </footer>
+        </div>
+        {% block js %}
+            <script src="{{ STATIC_URL }}contrib/jquery/jquery-1.8.3.js"></script>
+            <script src="{{ STATIC_URL }}contrib/socket.io/socket.io.js"></script>
+        {% endblock %}
+    </body>
+</html>
