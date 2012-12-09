@@ -71,7 +71,8 @@ USE_L10N = True
 USE_TZ = True
 
 PROJECT_ROOT = os.path.dirname(__file__)
-PUBLIC_ROOT = os.path.join(PROJECT_ROOT, 'public')
+PUBLIC_ROOT = os.path.join(PROJECT_ROOT, '..', 'public')
+DATA_ROOT = os.path.join(PROJECT_ROOT, '..', 'data')
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -172,6 +173,7 @@ INSTALLED_APPS = (
     # 'registration',
     'social_auth',
     'easy_thumbnails',
+    'djcelery',
     'south',
 )
 
@@ -184,7 +186,20 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+# django.contrib.gis
+GEOIP_PATH = os.path.join(DATA_ROOT, 'geoip')
+
 # social_auth
+SOCIAL_AUTH_PIPELINE = (
+    'social_auth.backends.pipeline.social.social_auth_user',
+    'social_auth.backends.pipeline.user.get_username',
+    'social_auth.backends.pipeline.user.create_user',
+    'social_auth.backends.pipeline.social.associate_user',
+    'social_auth.backends.pipeline.social.load_extra_data',
+    'social_auth.backends.pipeline.user.update_user_details',
+    'cupick.profiles.social_auth.sync_facebook_profile',
+)
+
 # http://developers.facebook.com/docs/reference/login/
 FACEBOOK_EXTENDED_PERMISSIONS = [
     'publish_actions',

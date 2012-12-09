@@ -24,12 +24,12 @@ class Profile(models.Model):
     user = models.OneToOneField(User, related_name='profile', blank=True, null=True)
     first_name = models.CharField(max_length=255, blank=True)
     last_name = models.CharField(max_length=255, blank=True)
-    birthday = models.DateField(blank=True)
+    birthday = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=16, choices=GENDER_CHOICES, blank=True)
     orientation = models.CharField(max_length=16, choices=ORIENTATION_CHOICES, blank=True)
-    country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, blank=True)
-    city = models.CharField(max_length=255, blank=True)
-    latlng = models.PointField(blank=True)
+    location_country = models.CharField(max_length=2, choices=COUNTRY_CHOICES, blank=True)
+    location_name = models.CharField(max_length=255, blank=True)
+    location_latlng = models.PointField(blank=True, null=True)
 
     objects = models.GeoManager()
 
@@ -42,3 +42,5 @@ class ProfilePhoto(models.Model):
     caption = models.TextField(blank=True)
     default = models.BooleanField()
     approved = models.NullBooleanField()
+
+from cupick.profiles.receivers import *
