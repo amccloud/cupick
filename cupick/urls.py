@@ -3,8 +3,6 @@ from django.conf import settings
 from django.contrib import admin
 from django.views.generic import TemplateView
 
-admin.autodiscover()
-
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/', include('debug_toolbar_user_panel.urls')),
