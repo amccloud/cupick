@@ -197,7 +197,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.associate_user',
     'social_auth.backends.pipeline.social.load_extra_data',
     'social_auth.backends.pipeline.user.update_user_details',
-    'cupick.profiles.social_auth.sync_facebook_profile',
+    'cupick.profiles.social.sync_facebook_profile',
 )
 
 # http://developers.facebook.com/docs/reference/login/
