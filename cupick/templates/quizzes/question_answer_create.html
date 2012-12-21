@@ -1,0 +1,11 @@
+<img src="{{ view.subject.default_photo.image.small_square.url }}">
+<h1>{{ question_text }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.question }}
+    {{ form.subject }}
+    {% for choice in view.question.choices.all %}
+        <button name="choice" value="{{ choice.id }}">{{ choice.label }}</button>
+    {% endfor %}
+    <button name="choice">Skip</button>
+</form>

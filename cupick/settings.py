@@ -164,9 +164,10 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.gis',
     'cupick.common',
-    'cupick.accounts',
     'cupick.profiles',
-    'cupick.credits',
+    # 'cupick.credits',
+    'cupick.social',
+    'cupick.quizzes',
     'django_extensions',
     'debug_toolbar',
     'debug_toolbar_user_panel',
@@ -178,7 +179,7 @@ INSTALLED_APPS = (
 )
 
 # django.contrib.auth
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'profiles.User'
 LOGIN_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/'
 AUTHENTICATION_BACKENDS = (
@@ -190,6 +191,7 @@ AUTHENTICATION_BACKENDS = (
 GEOIP_PATH = os.path.join(DATA_ROOT, 'geoip')
 
 # social_auth
+SOCIAL_AUTH_USER_MODEL = AUTH_USER_MODEL
 SOCIAL_AUTH_PIPELINE = (
     'social_auth.backends.pipeline.social.social_auth_user',
     'social_auth.backends.pipeline.user.get_username',
@@ -210,37 +212,14 @@ FACEBOOK_EXTENDED_PERMISSIONS = [
     'user_hometown',
     'user_interests',
     'user_likes',
-    'user_location',
-    'user_relationships',
-    'user_relationship_details',
-    'user_religion_politics',
-    'friends_about_me',
-    'friends_birthday',
-    'friends_education_history',
-    'friends_hometown',
-    'friends_interests',
-    'friends_likes',
-    'friends_location',
-    'friends_relationships',
-    'friends_relationship_details',
-    'friends_religion_politics',
 ]
 
 # easy_thumbnails
-THUMBNAIL_PROCESSORS = (
-    'easy_thumbnails.processors.colorspace',
-    'easy_thumbnails.processors.autocrop',
-    'easy_thumbnails.processors.scale_and_crop',
-    'easy_thumbnails.processors.filters',
-    'cupick.profiles.thumbnail_processors.blur',
-)
-
 THUMBNAIL_ALIASES = {
-    'profiles.ProfilePhoto.image': {
-        'backdrop': {
-            'size': (960, 300),
-            'crop': 'auto',
-            'blur': True,
+    '': {
+        'small_square':  {
+            'size': (100, 100),
+            'crop': 'center',
         },
     },
 }

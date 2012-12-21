@@ -8,8 +8,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include('debug_toolbar_user_panel.urls')),
     # url(r'^account/', include('registration.urls')),
     url(r'^account/', include('social_auth.urls')),
-    url(r'^profiles/', include('cupick.profiles.urls')),
-    url(r'^credits/', include('cupick.credits.urls')),
+    url(r'^likes/', include('cupick.likes.urls', app_name='likes')),
+    url(r'^quiz/', include('cupick.quizzes.urls')),
     url(r'^$', TemplateView.as_view(template_name='index.html')),
 )
 

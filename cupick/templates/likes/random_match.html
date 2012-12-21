@@ -1,0 +1,10 @@
+{% load thumbnail %}
+
+<h1>Do you like <a href="#">{{ view.match.first_name }}</a>?</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Yes">
+    <a href=".">No</a>
+</form>
+<a href="#"><img src="{% thumbnail view.match.default_photo.image 500x500 %}"></a>

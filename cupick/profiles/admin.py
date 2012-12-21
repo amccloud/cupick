@@ -1,52 +1,42 @@
 from django.contrib import admin
-from django.utils.safestring import mark_safe
-from django.utils.html import escape
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import UserChangeForm as BaseUserChangeForm
+from django.utils.translation import ugettext_lazy as _
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
-from easy_thumbnails.files import get_thumbnailer
-from cupick.profiles.models import Profile, ProfilePhoto
+from cupick.common.admin.utils import thumbnail
+from cupick.profiles.models import User, UserPhoto
 
-def thumbnail(field, **options):
-    def _thumbnail(obj):
-        image = getattr(obj, field)
+class UserChangeForm(BaseUserChangeForm):
+    class Meta:
+        model = User
 
-        if not image:
-            return
-
-        thumb = get_thumbnailer(image).get_thumbnail(options)
-        attrs = {
-            'alt': image.name,
-            'src': thumb.url,
-        }
-
-        if 'size' in options:
-            attrs.update({
-                'width': options['size'][0],
-                'height': options['size'][1],
-            })
-
-        if 'attrs' in options:
-            attrs.update(options['attrs'])
-
-        attrs = ' '.join(['%s=%s' % (k, escape(v)) for k, v in attrs.iteritems()])
-
-        return mark_safe('<img %s>' % attrs)
-
-    return _thumbnail
-
-class ProfilePhotoInline(admin.StackedInline):
-    model = ProfilePhoto
+class UserPhotoInline(admin.StackedInline):
+    model = UserPhoto
     extra = 0
 
-class ProfileAdmin(ForeignKeyAutocompleteAdmin):
+class UserAdmin(UserAdmin, ForeignKeyAutocompleteAdmin):
     default_photo_image = thumbnail('default_photo_image', crop=True, size=(80, 80))
     default_photo_image.short_description = 'Default Photo'
-    list_display = (default_photo_image, 'name', 'gender', 'orientation', 'age', 'location_name')
+    list_display = (default_photo_image, 'name', 'username', 'email', 'gender', 'orientation', 'age', 'location_name')
     list_display_links = (default_photo_image, 'name')
     list_filter = ('gender', 'orientation', 'birthday')
     list_select_related = True
-    inlines = [ProfilePhotoInline]
+    inlines = [UserPhotoInline]
+    form = UserChangeForm
+    fieldsets = (
+        (_('Authentication'), {
+            'fields': ('username', 'password'),
+        }),
+        (_('Profile'), {
+            'fields': ('first_name', 'last_name', 'email', 'gender', 'orientation', 'birthday', 'location_name', 'default_photo'),
+        }),
+        (_('Permissions'), {
+            'fields': ('is_active', 'is_staff', 'is_superuser'),
+        }),
+    )
     related_search_fields = {
-        'user': ('username', 'email'),
+        'user': ('username', 'email', 'first_name', 'last_name'),
+        'default_photo': (),
     }
 
-admin.site.register(Profile, ProfileAdmin)
+admin.site.register(User, UserAdmin)
